@@ -39,6 +39,7 @@ function assertVersion() {
     let vssExtension = fs.readFileSync('vss-extension.json', 'utf8');
     let vssExtensionJson = JSON.parse(vssExtension);
     assert.strictEqual(compareVersions(commandLineArgsOptions.version, vssExtensionJson.version), 1, 'Input version must be bigger than current version');
+    assert.strictEqual(splitVersion[0], vssExtensionJson.version.split('.')[0], 'Changing Major version using this script is forbidden');
 }
 
 /**
@@ -51,14 +52,14 @@ function updateTasksVersion() {
         let taskDir = path.join('tasks', taskName);
         let taskJsonPath = path.join(taskDir, 'task.json');
         if (fs.existsSync(taskJsonPath)) {
-            console.log('Updating version of task ' + taskName + ' to X.' + splitVersion[1] + "." + splitVersion[2]);
+            console.log('Updating version of task ' + taskName + ' to ' + commandLineArgsOptions.version);
             updateTaskJsonWithNewVersion(taskJsonPath)
         } else {
             fs.readdir(taskDir, (err, taskVersionDirs) => {
                 taskVersionDirs.forEach(versToBuild => {
                     let taskVersionDirJson = path.join(taskDir, versToBuild, 'task.json');
                     if (fs.existsSync(taskVersionDirJson)) {
-                        console.log('Updating version of task ' + taskName + ', version: ' + versToBuild + ' to X.' + splitVersion[1] + "." + splitVersion[2]);
+                        console.log('Updating version of task ' + taskName + ', version: ' + versToBuild + ', to ' + commandLineArgsOptions.version);
                         updateTaskJsonWithNewVersion(taskVersionDirJson);
                     }
                 })
