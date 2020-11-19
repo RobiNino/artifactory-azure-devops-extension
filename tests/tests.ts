@@ -30,7 +30,8 @@ describe('JFrog Artifactory Extension Tests', (): void => {
         tasksOutput = '';
     });
 
-    after((): void => {
+    after(function(): void {
+        this.timeout(60000); // 1 minute timer for the after hook only.
         TestUtils.cleanUpAllTests();
     });
 
@@ -75,7 +76,8 @@ describe('JFrog Artifactory Extension Tests', (): void => {
                 process.env.HTTP_PROXY = '';
                 done(cliDownloadedWithProxy ? '' : new Error('CLI downloaded without using the proxy server'));
             });
-        });
+        },
+            TestUtils.isSkipTest('proxy'));
 
         runSyncTest('Cli join', (): void => {
             assert.strictEqual(jfrogUtils.cliJoin('jfrog', 'rt', 'u'), 'jfrog rt u');

@@ -15,16 +15,14 @@
         "mocha": "^8.2.1",
         "null-writable": "^1.0.5",
         "path": "^0.12.7",
-        "sync-request": "^6.0.0",
-        "ts-node": "^9.0.0"
+        "sync-request": "^6.0.0"
     },
     "devDependencies": {
-        "@types/mocha": "^8.0.4",
         "@types/fs-extra": "^9.0.2",
         "@types/http-proxy": "^1.17.4",
+        "@types/mocha": "^8.0.4",
         "@types/node": "^14.14.7",
-        "@types/rimraf": "^3.0.0",
-        "@types/q": "^1.5.4"
+        "@types/rimraf": "^3.0.0"
     },
     "scripts": {
         "test": "npm i && mocha -r ts-node/register tests.ts -t 600000"
