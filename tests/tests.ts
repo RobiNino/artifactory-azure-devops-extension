@@ -16,7 +16,7 @@ let tasksOutput: string;
 describe('JFrog Artifactory Extension Tests', (): void => {
     let repoKeys: any;
     before(function(): void {
-        this.timeout(60000); // 1 minute timer for the before hook only.
+        this.timeout(120000); // 2 minute timer for the before hook only.
         // Validate environment variables exist for tests
         assert.ok(TestUtils.artifactoryUrl, 'Tests are missing environment variable: ADO_ARTIFACTORY_URL');
         assert.ok(TestUtils.artifactoryUsername, 'Tests are missing environment variable: ADO_ARTIFACTORY_USERNAME');
@@ -31,7 +31,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
     });
 
     after(function(): void {
-        this.timeout(60000); // 1 minute timer for the after hook only.
+        this.timeout(120000); // 2 minute timer for the after hook only.
         TestUtils.cleanUpAllTests();
     });
 
@@ -310,7 +310,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             const build: syncRequest.Response = getAndAssertBuild('buildUrlBuildPipeline', '3');
             assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_build?buildId=5');
             deleteBuild('buildUrlBuildPipeline');
-        });
+        }, true); // todo remove
 
         runSyncTest('Build URL release pipeline', (): void => {
             const testDir: string = 'buildUrlReleasePipeline';
@@ -319,7 +319,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             const build: syncRequest.Response = getAndAssertBuild('buildUrlReleasePipeline', '3');
             assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_release?releaseId=6');
             deleteBuild('buildUrlReleasePipeline');
-        });
+        }, true); // todo remove
     });
 
     describe('Build Promotion Tests', (): void => {

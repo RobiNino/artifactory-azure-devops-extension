@@ -175,6 +175,8 @@ export function createTestRepositories(): void {
             packageType: 'nuget',
             repoLayoutRef: 'nuget-default',
             downloadContextPath: 'api/v2/package',
+            feedContextPath: "api/v2",
+            v3FeedUrl: "https://api.nuget.org/v3/index.json",
             url: 'https://www.nuget.org/'
         })
     );
