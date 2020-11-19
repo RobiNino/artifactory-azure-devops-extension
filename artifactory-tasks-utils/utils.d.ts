@@ -1,4 +1,4 @@
-// index.d.ts
+// utils.d.ts
 import * as ifm from 'typed-rest-client/Interfaces';
 import { IExecSyncResult } from 'azure-pipelines-task-lib/toolrunner';
 

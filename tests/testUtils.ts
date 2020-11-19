@@ -7,7 +7,6 @@ import * as syncRequest from 'sync-request';
 import * as assert from 'assert';
 import NullWritable from 'null-writable';
 import { TaskMockRunner } from 'azure-pipelines-task-lib/mock-run';
-import * as os from 'os';
 
 const testDataDir: string = path.join(__dirname, 'testData');
 const repoKeysPath: string = path.join(testDataDir, 'configuration', 'repoKeys');
@@ -443,9 +442,4 @@ export function isSkipTest(skipValue: string): boolean {
 
 export function stripTrailingSlash(str: string): string {
     return str.endsWith('/') ? str.slice(0, -1) : str;
-}
-
-// todo replace with the one from conan utils
-export function getCliPartialsBuildDir(buildName: string, buildNumber: string): string {
-    return path.join(os.tmpdir(), 'jfrog/builds', Buffer.from(buildName + '_' + buildNumber).toString('base64'));
 }
