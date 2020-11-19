@@ -20,7 +20,7 @@ environment:
     secure: UjixvF6E1Bp1p8zgPRLCVA==
 
 install:
-- ps: Install-Product node 10
+#- ps: Install-Product node 10
 - npm i -gq jfrog-cli-go
 - sh: sudo pip install conan -q
 - cmd: pip install conan -q
