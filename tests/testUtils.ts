@@ -41,8 +41,7 @@ const repoKeys: any = {
     pipVirtualRepo: 'pip-virtual'
 };
 
-export { testDataDir, repoKeys, artifactoryDockerDomain, artifactoryDockerRepo,
-    artifactoryUrl, artifactoryPassword, artifactoryUsername };
+export { testDataDir, repoKeys, artifactoryDockerDomain, artifactoryDockerRepo, artifactoryUrl, artifactoryPassword, artifactoryUsername };
 
 export const promote: string = path.join(__dirname, '..', 'tasks', 'ArtifactoryBuildPromotion', 'buildPromotion.js');
 export const conan: string = path.join(__dirname, '..', 'tasks', 'ArtifactoryConan', 'conanBuild.js');
@@ -174,8 +173,8 @@ export function createTestRepositories(): void {
             packageType: 'nuget',
             repoLayoutRef: 'nuget-default',
             downloadContextPath: 'api/v2/package',
-            feedContextPath: "api/v2",
-            v3FeedUrl: "https://api.nuget.org/v3/index.json",
+            feedContextPath: 'api/v2',
+            v3FeedUrl: 'https://api.nuget.org/v3/index.json',
             url: 'https://www.nuget.org/'
         })
     );

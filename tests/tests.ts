@@ -45,14 +45,14 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             try {
                 jfrogUtils.executeCliCommand(
                     'jfrog rt del ' +
-                    repoKeys.repo1 +
-                    '/' +
-                    ' --url=' +
-                    jfrogUtils.quote(process.env.ADO_ARTIFACTORY_URL || '') +
-                    ' --user=' +
-                    jfrogUtils.quote(process.env.ADO_ARTIFACTORY_USERNAME || '') +
-                    ' --password=' +
-                    jfrogUtils.quote('SUPER_SECRET'),
+                        repoKeys.repo1 +
+                        '/' +
+                        ' --url=' +
+                        jfrogUtils.quote(process.env.ADO_ARTIFACTORY_URL || '') +
+                        ' --user=' +
+                        jfrogUtils.quote(process.env.ADO_ARTIFACTORY_USERNAME || '') +
+                        ' --password=' +
+                        jfrogUtils.quote('SUPER_SECRET'),
                     TestUtils.testDataDir,
                     ['']
                 );
@@ -64,21 +64,24 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assert.ok(!retVal.includes('SUPER_SECRET'), 'Output contains password');
         });
 
-        runAsyncTest('Download JFrog CLI through a proxy', (done: mocha.Done): void => {
-            process.env.HTTP_PROXY = 'http://localhost:8000';
-            let cliDownloadedWithProxy: boolean = false;
-            const proxyServer: httpProxy = httpProxy.createProxyServer({}).listen(8000);
-            proxyServer.on('proxyReq', (): void => {
-                // We are here for each http request.
-                cliDownloadedWithProxy = true;
-            });
-            jfrogUtils.downloadCli().then((): void => {
-                proxyServer.close();
-                process.env.HTTP_PROXY = '';
-                done(cliDownloadedWithProxy ? '' : new Error('CLI downloaded without using the proxy server'));
-            });
-        },
-            TestUtils.isSkipTest('proxy'));
+        runAsyncTest(
+            'Download JFrog CLI through a proxy',
+            (done: mocha.Done): void => {
+                process.env.HTTP_PROXY = 'http://localhost:8000';
+                let cliDownloadedWithProxy: boolean = false;
+                const proxyServer: httpProxy = httpProxy.createProxyServer({}).listen(8000);
+                proxyServer.on('proxyReq', (): void => {
+                    // We are here for each http request.
+                    cliDownloadedWithProxy = true;
+                });
+                jfrogUtils.downloadCli().then((): void => {
+                    proxyServer.close();
+                    process.env.HTTP_PROXY = '';
+                    done(cliDownloadedWithProxy ? '' : new Error('CLI downloaded without using the proxy server'));
+                });
+            },
+            TestUtils.isSkipTest('proxy')
+        );
 
         runSyncTest('Cli join', (): void => {
             assert.strictEqual(jfrogUtils.cliJoin('jfrog', 'rt', 'u'), 'jfrog rt u');
@@ -304,23 +307,31 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             deleteBuild('excludeEnv');
         });
 
-        runSyncTest('Build URL build pipeline', (): void => {
-            const testDir: string = 'buildUrlBuildPipeline';
-            mockTask(testDir, 'upload');
-            mockTask(testDir, 'publish');
-            const build: syncRequest.Response = getAndAssertBuild('buildUrlBuildPipeline', '3');
-            assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_build?buildId=5');
-            deleteBuild('buildUrlBuildPipeline');
-        }, true); // todo remove
+        runSyncTest(
+            'Build URL build pipeline',
+            (): void => {
+                const testDir: string = 'buildUrlBuildPipeline';
+                mockTask(testDir, 'upload');
+                mockTask(testDir, 'publish');
+                const build: syncRequest.Response = getAndAssertBuild('buildUrlBuildPipeline', '3');
+                assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_build?buildId=5');
+                deleteBuild('buildUrlBuildPipeline');
+            },
+            true
+        ); // todo remove
 
-        runSyncTest('Build URL release pipeline', (): void => {
-            const testDir: string = 'buildUrlReleasePipeline';
-            mockTask(testDir, 'upload');
-            mockTask(testDir, 'publish');
-            const build: syncRequest.Response = getAndAssertBuild('buildUrlReleasePipeline', '3');
-            assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_release?releaseId=6');
-            deleteBuild('buildUrlReleasePipeline');
-        }, true); // todo remove
+        runSyncTest(
+            'Build URL release pipeline',
+            (): void => {
+                const testDir: string = 'buildUrlReleasePipeline';
+                mockTask(testDir, 'upload');
+                mockTask(testDir, 'publish');
+                const build: syncRequest.Response = getAndAssertBuild('buildUrlReleasePipeline', '3');
+                assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_release?releaseId=6');
+                deleteBuild('buildUrlReleasePipeline');
+            },
+            true
+        ); // todo remove
     });
 
     describe('Build Promotion Tests', (): void => {
@@ -800,7 +811,6 @@ describe('JFrog Artifactory Extension Tests', (): void => {
         jfrogUtils.executeCliCommand('jfrog rt ' + command + ' "' + buildName + '" ' + buildNumber, TestUtils.testDataDir);
     }
 
-
     describe('Pip Tests', (): void => {
         runSyncTest(
             'Pip Install',
@@ -829,9 +839,9 @@ function runSyncTest(description: string, testFunc: () => void, skip?: boolean):
     }
 
     it(description, (done): void => {
-    testFunc();
-    done();
-}).timeout(300000); // 5 minutes
+        testFunc();
+        done();
+    }).timeout(300000); // 5 minutes
 }
 
 /**
@@ -848,8 +858,8 @@ function runAsyncTest(description: string, testFunc: (done: mocha.Done) => void,
     }
 
     it(description, (done): void => {
-    testFunc(done);
-}).timeout(300000); // 5 minutes
+        testFunc(done);
+    }).timeout(300000); // 5 minutes
 }
 
 /**
