@@ -312,31 +312,23 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             deleteBuild('excludeEnv');
         });
 
-        runSyncTest(
-            'Build URL build pipeline',
-            (): void => {
-                const testDir: string = 'buildUrlBuildPipeline';
-                mockTask(testDir, 'upload');
-                mockTask(testDir, 'publish');
-                const build: syncRequest.Response = getAndAssertBuild('buildUrlBuildPipeline', '3');
-                assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_build?buildId=5');
-                deleteBuild('buildUrlBuildPipeline');
-            },
-            true
-        ); // todo remove
+        runSyncTest('Build URL build pipeline', (): void => {
+            const testDir: string = 'buildUrlBuildPipeline';
+            mockTask(testDir, 'upload');
+            mockTask(testDir, 'publish');
+            const build: syncRequest.Response = getAndAssertBuild('buildUrlBuildPipeline', '3');
+            assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_build?buildId=5');
+            deleteBuild('buildUrlBuildPipeline');
+        });
 
-        runSyncTest(
-            'Build URL release pipeline',
-            (): void => {
-                const testDir: string = 'buildUrlReleasePipeline';
-                mockTask(testDir, 'upload');
-                mockTask(testDir, 'publish');
-                const build: syncRequest.Response = getAndAssertBuild('buildUrlReleasePipeline', '3');
-                assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_release?releaseId=6');
-                deleteBuild('buildUrlReleasePipeline');
-            },
-            true
-        ); // todo remove
+        runSyncTest('Build URL release pipeline', (): void => {
+            const testDir: string = 'buildUrlReleasePipeline';
+            mockTask(testDir, 'upload');
+            mockTask(testDir, 'publish');
+            const build: syncRequest.Response = getAndAssertBuild('buildUrlReleasePipeline', '3');
+            assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_release?releaseId=6');
+            deleteBuild('buildUrlReleasePipeline');
+        });
     });
 
     describe('Build Promotion Tests', (): void => {
