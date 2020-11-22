@@ -12,7 +12,8 @@
         "types": ["node"],
         "resolveJsonModule": true,
         "noImplicitReturns": true,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "skipLibCheck": true
     },
     "exclude": [
         "**/node_modules", "**/resources"

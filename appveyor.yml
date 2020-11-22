@@ -4,9 +4,9 @@ skip_tags: true
 environment:
   matrix:
       - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-        ADO_ARTIFACTORY_SKIP_TESTS: docker,proxy # todo remove
+        ADO_ARTIFACTORY_SKIP_TESTS: docker,maven,gradle,npm,go,nuget,dotnet,conan,pip # todo remove
       - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-        ADO_ARTIFACTORY_SKIP_TESTS: proxy # todo remove
+        ADO_ARTIFACTORY_SKIP_TESTS: docker,maven,gradle,npm,go,nuget,dotnet,conan,pip # todo remove
   nodejs_version: "10"
   ADO_ARTIFACTORY_URL:
     secure: RIh0gGFDn2JAnLUEEqLsQnZ5H3XFWg1s+Qq8Z4i+Xu+FtQf6Tsu2AnfY4/6AaXJ8
@@ -33,6 +33,5 @@ services:
 test_script:
 - node --version
 - npm --version
-- mvn -v # todo remove
 - npm t
 - npm run create # Make sure that that the extension can be created

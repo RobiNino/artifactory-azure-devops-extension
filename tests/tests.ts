@@ -1,3 +1,4 @@
+/// <reference types="./node_modules/node-tunnel/typings/basic-auth-parser" />
 import * as adoMockTest from 'azure-pipelines-task-lib/mock-test';
 import * as fs from 'fs-extra';
 import * as jfrogUtils from 'artifactory-tasks-utils';
@@ -7,10 +8,11 @@ import * as syncRequest from 'sync-request';
 import * as TestUtils from './testUtils';
 import * as toolLib from 'azure-pipelines-tool-lib/tool';
 import * as assert from 'assert';
-import httpProxy from 'http-proxy';
 import * as os from 'os';
 import { execSync } from 'child_process';
 import conanUtils from '../tasks/ArtifactoryConan/conanUtils';
+import { Tunnel } from 'node-tunnel';
+import { Server } from 'http';
 
 let tasksOutput: string;
 
@@ -69,13 +71,17 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             (done: mocha.Done): void => {
                 process.env.HTTP_PROXY = 'http://localhost:8000';
                 let cliDownloadedWithProxy: boolean = false;
-                const proxyServer: httpProxy = httpProxy.createProxyServer({}).listen(8000);
-                proxyServer.on('proxyReq', (): void => {
+
+                const tunnel: Tunnel = new Tunnel();
+                const server: Server = tunnel.listen(8000);
+                tunnel.use((): void => {
                     // We are here for each http request.
                     cliDownloadedWithProxy = true;
                 });
+
                 jfrogUtils.downloadCli().then((): void => {
-                    proxyServer.close();
+                    server.close();
+                    tunnel.close();
                     process.env.HTTP_PROXY = '';
                     done(cliDownloadedWithProxy ? '' : new Error('CLI downloaded without using the proxy server'));
                 });
