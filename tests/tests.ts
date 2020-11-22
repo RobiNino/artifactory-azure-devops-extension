@@ -12,7 +12,6 @@ import * as os from 'os';
 import { execSync } from 'child_process';
 import conanUtils from '../tasks/ArtifactoryConan/conanUtils';
 import { Tunnel } from 'node-tunnel';
-import { Server } from 'http';
 
 let tasksOutput: string;
 
@@ -73,14 +72,14 @@ describe('JFrog Artifactory Extension Tests', (): void => {
                 let cliDownloadedWithProxy: boolean = false;
 
                 const tunnel: Tunnel = new Tunnel();
-                const server: Server = tunnel.listen(8000);
-                tunnel.use((): void => {
+                tunnel.listen(8000);
+                tunnel.use((req, cltSocket, head, next): void => {
                     // We are here for each http request.
                     cliDownloadedWithProxy = true;
+                    next();
                 });
 
                 jfrogUtils.downloadCli().then((): void => {
-                    server.close();
                     tunnel.close();
                     process.env.HTTP_PROXY = '';
                     done(cliDownloadedWithProxy ? '' : new Error('CLI downloaded without using the proxy server'));
