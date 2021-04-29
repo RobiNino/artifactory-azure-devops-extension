@@ -17,7 +17,7 @@ const buildAgent = 'artifactory-azure-devops-extension';
 const customFolderPath = encodePath(path.join(jfrogFolderPath, 'current'));
 const customCliPath = encodePath(path.join(customFolderPath, fileName)); // Optional - Customized jfrog-cli path.
 const customLegacyCliPath = encodePath(path.join(jfrogLegacyFolderPath, 'current', fileName));
-const jfrogCliReleasesUrl = 'https://robindev.jfrog.io/artifactory/jfrog-cli';
+const jfrogCliReleasesUrl = 'https://robindev.jfrog.io/artifactory/jfrog-cli-plugins-virtual';
 
 // Set by Tools Installer Task. This JFrog CLI version will be used in all tasks unless manual installation is used,
 // or a specific version was requested in a task. If not set, use the default CLI version.
