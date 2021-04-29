@@ -204,7 +204,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             // Download all files
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'expectedFiles'), testDir);
-        });
+        }, true);
     });
 
     describe('Tools Installer Tests', (): void => {
@@ -229,7 +229,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             // Run tools installer to download CLI from a fresh repository
             mockTask(testDir, 'toolsInstallerCustomVersion');
             assert.ok(toolLib.findLocalToolVersions('jfrog').length === 1);
-        });
+        }, true);
     });
 
     describe('Upload and Download Tests', (): void => {
@@ -299,7 +299,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assertBuildEnv(build, 'buildInfo.env.BUILD_NULL', 'null');
             assertBuildEnv(build, 'buildInfo.env.BUILD_PASSWORD', 'open-sesame');
             deleteBuild('includeEnv');
-        });
+        },true);
     });
 
     describe('Publish Build Info Tests', (): void => {
@@ -344,7 +344,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             const build: syncRequest.Response = getAndAssertBuild('buildUrlReleasePipeline', '3');
             assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_release?releaseId=6');
             deleteBuild('buildUrlReleasePipeline');
-        });
+        },true);
     });
 
     describe('Build Promotion Tests', (): void => {
