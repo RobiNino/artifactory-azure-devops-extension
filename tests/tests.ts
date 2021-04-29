@@ -219,7 +219,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             // Run tools installer again to make sure the JFrog CLI downloaded from Artifactory remote cache
             mockTask(testDir, 'toolsInstaller');
             assert.ok(toolLib.findLocalToolVersions('jfrog').length === 1);
-        });
+        }, true);
 
         runSyncTest('Download Custom CLI version', (): void => {
             const testDir: string = 'toolsInstaller';
@@ -238,28 +238,28 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             mockTask(testDir, 'upload');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'files'), testDir);
-        });
+        }, true);
 
         runSyncTest('Upload and download with Spec Vars', (): void => {
             const testDir: string = 'uploadAndDownloadWithSpecVars';
             mockTask(testDir, 'upload');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'files'), testDir);
-        });
+        }, true);
 
         runSyncTest('Upload and download from file', (): void => {
             const testDir: string = 'uploadAndDownloadFromFile';
             mockTask(testDir, 'upload');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'files'), testDir);
-        });
+        }, true);
 
         runSyncTest('Upload and dry-run download', (): void => {
             const testDir: string = 'uploadAndDryRunDownload';
             mockTask(testDir, 'upload');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'emptyDir'), testDir);
-        });
+        }, true);
 
         runSyncTest('Dry-run upload and download', (): void => {
             const testDir: string = 'dryRunUploadAndDownload';
@@ -267,7 +267,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             mockTask(testDir, 'upload');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'expectedDir'), testDir);
-        });
+        }, true);
 
         runSyncTest('Download artifact source', (): void => {
             const testDir: string = 'downloadArtifactSource';
@@ -275,18 +275,18 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             mockTask(testDir, 'publish');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'files'), testDir);
-        });
+        }, true);
 
         runSyncTest('Upload fail-no-op', (): void => {
             const testDir: string = 'uploadFailNoOp';
             mockTask(testDir, 'upload', true);
-        });
+        }, true);
 
         runSyncTest('Download fail-no-op', (): void => {
             const testDir: string = 'downloadFailNoOp';
             mockTask(testDir, 'download', true);
             assertFiles(path.join(testDir, 'files'), testDir);
-        });
+        }, true);
 
         runSyncTest('Include environment variables', (): void => {
             const testDir: string = 'includeEnv';
@@ -313,7 +313,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assertBuildModule(build, 'myUploadModule');
             assertBuildModule(build, 'myDownloadModule');
             deleteBuild('buildPublish');
-        });
+        }, true);
 
         runSyncTest('Exclude Environment Variables', (): void => {
             const testDir: string = 'excludeEnv';
@@ -326,7 +326,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assertBuildEnv(build, 'buildInfo.env.BUILD_NULL', 'null');
             assertBuildEnv(build, 'buildInfo.env.BUILD_PASSWORD', undefined);
             deleteBuild('excludeEnv');
-        });
+        }, true);
 
         runSyncTest('Build URL build pipeline', (): void => {
             const testDir: string = 'buildUrlBuildPipeline';
@@ -335,7 +335,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             const build: syncRequest.Response = getAndAssertBuild('buildUrlBuildPipeline', '3');
             assertBuildUrl(build, 'https://ecosys.visualstudio.com/ecosys/_build?buildId=5');
             deleteBuild('buildUrlBuildPipeline');
-        });
+        }, true);
 
         runSyncTest('Build URL release pipeline', (): void => {
             const testDir: string = 'buildUrlReleasePipeline';
@@ -357,7 +357,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assertFiles(path.join(testDir, 'files'), testDir);
             getAndAssertBuild('buildPromote', '3');
             deleteBuild('buildPromote');
-        });
+        }, true);
 
         runSyncTest('Build promotion dry run', (): void => {
             const testDir: string = 'promotionDryRun';
@@ -368,7 +368,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assertFiles(path.join(testDir, 'files'), testDir);
             getAndAssertBuild('buildPromoteDryRun', '3');
             deleteBuild('buildPromoteDryRun');
-        });
+        }, true);
     });
 
     describe('Discard Builds Tests', (): void => {
@@ -400,7 +400,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             assertDiscardedBuild('buildDiscard', '3');
 
             deleteBuild('buildDiscard');
-        });
+        }, true);
     });
 
     describe('Properties Tests', (): void => {
@@ -410,7 +410,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             mockTask(testDir, 'set');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'files'), testDir);
-        });
+        }, true);
 
         runSyncTest('Delete properties', (): void => {
             const testDir: string = 'deleteProperties';
@@ -419,7 +419,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
             mockTask(testDir, 'delete');
             mockTask(testDir, 'download');
             assertFiles(path.join(testDir, 'filesExpectedDelete'), testDir);
-        });
+        }, true);
     });
 
     describe('Npm Tests', (): void => {

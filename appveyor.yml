@@ -3,8 +3,6 @@ stack: node 10, python 3.9, jdk 8
 skip_tags: true
 environment:
   matrix:
-      - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-        ADO_SKIP_TESTS: docker,maven,gradle,npm,go,nuget,dotnet,pip,proxy,conan # todo ADO_SKIP_TESTS: docker
       - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
         ADO_SKIP_TESTS: docker,maven,gradle,npm,go,nuget,dotnet,pip,proxy,conan # todo
 
