@@ -10,14 +10,14 @@ const toolName = 'jfrog';
 const cliPackage = 'jfrog-cli-' + getArchitecture();
 const jfrogFolderPath = encodePath(path.join(tl.getVariable('Agent.ToolsDirectory') || '', '_jfrog'));
 const jfrogLegacyFolderPath = encodePath(path.join(tl.getVariable('Agent.WorkFolder') || '', '_jfrog'));
-const defaultJfrogCliVersion = '1.47.0';
+const defaultJfrogCliVersion = '1.68.0';
 const minCustomCliVersion = '1.37.1';
 const pluginVersion = '1.11.8';
 const buildAgent = 'artifactory-azure-devops-extension';
 const customFolderPath = encodePath(path.join(jfrogFolderPath, 'current'));
 const customCliPath = encodePath(path.join(customFolderPath, fileName)); // Optional - Customized jfrog-cli path.
 const customLegacyCliPath = encodePath(path.join(jfrogLegacyFolderPath, 'current', fileName));
-const jfrogCliReleasesUrl = 'https://releases.jfrog.io/artifactory/jfrog-cli/v1';
+const jfrogCliReleasesUrl = 'https://robindev.jfrog.io/artifactory/jfrog-cli';
 
 // Set by Tools Installer Task. This JFrog CLI version will be used in all tasks unless manual installation is used,
 // or a specific version was requested in a task. If not set, use the default CLI version.

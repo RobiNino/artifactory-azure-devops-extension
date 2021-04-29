@@ -189,7 +189,7 @@ describe('JFrog Artifactory Extension Tests', (): void => {
         runSyncTest('Conan Utils - Get Cli Partials Build Dir', (): void => {
             const jfrogCliVersions: any = ['1.44.0', '1.45.2'];
             jfrogCliVersions.forEach((version: string): void => testGetCliPartialsBuildDir(version));
-        });
+        }, true);
     });
 
     describe('JFrog CLI Task Tests', (): void => {
